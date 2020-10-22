@@ -1,0 +1,44 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+
+<body>
+	<nav>
+	</nav>
+	<main>
+		<h1>Consultorea.me</h1>
+
+		<section>
+            <h2>Sobre nuestros clientes</h2>
+
+            <p>un bonito texto sobre nuestros clientes.</p>
+
+            <table style="width:100%">
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad de Empleados</th>
+                <th>Emprendimiento 1</th>
+                <th>Emprendimiento 2</th>
+                <th>Emprendimiento 3</th>
+              </tr>
+            {{#consultoras}}
+              <tr>
+                <td>{{nombre}}</td>
+                <td>{{cantidadEmpleados}}</td>
+                {{#proyectos}}
+                <td>{{nombre}}</td>
+                {{/proyectos}}
+              </tr>
+            {{/consultoras}}
+            </table>
+            <button name="button"><a href="/consultoras">Volver</a></button>
+        </section>
+	</main>
+	<footer>
+		Copyright {{anio}} Consultorea.me
+	</footer>
+</body>
+
+</html>

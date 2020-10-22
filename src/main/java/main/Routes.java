@@ -49,16 +49,17 @@ public class Routes {
           // pasar una lista y recorrerla mediante #lista
 
           modelo.put("anio", LocalDate.now().getYear());
-          modelo.put("consultoras", RepositorioConsultoras.instancia.listar());
+          modelo.put("consultoras", RepositorioConsultoras.instancia.listarPrimerasTres());
 
-          return new ModelAndView(modelo, "index.html.hbs");
+          return new ModelAndView(modelo, "consultoras.html.hbs");
       }, engine);
 
-      Spark.get("/consultoras", (request, response) -> {
+
+      Spark.get("/consultoras/:id", (request, response) -> {
           // opcion 1
           // pasar un diccionario
           Map<String, Object> modelo = new HashMap<>();
-
+          String id = request.params(":id");
           // opción 2
           // pasar un objeto que tenga getters
 
@@ -66,9 +67,9 @@ public class Routes {
           // pasar una lista y recorrerla mediante #lista
 
           modelo.put("anio", LocalDate.now().getYear());
-          modelo.put("consultoras", RepositorioConsultoras.instancia.listar());
+          modelo.put("consultoras", RepositorioConsultoras.instancia.buscarPorNombre(id));
 
-          return new ModelAndView(modelo, "index.html.hbs");
+          return new ModelAndView(modelo, "consultora-id.html.hbs");
       }, engine);
   }
 

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
@@ -10,8 +11,15 @@ public class RepositorioConsultoras implements WithGlobalEntityManager {
 
   public List<Consultora> listar() {
     return entityManager()//
-        .createQuery("from Consultora", Consultora.class) //
+        .createQuery("from Consultora", Consultora.class)
+        .setMaxResults(3)
         .getResultList();
+  }
+
+  public List<Consultora> listarPrimerasTres() {
+    return entityManager()//
+            .createQuery("from Consultora c order by c.cantidadEmpleados desc", Consultora.class)
+            .getResultList();
   }
 
   public Consultora buscar(long id) {
@@ -22,11 +30,14 @@ public class RepositorioConsultoras implements WithGlobalEntityManager {
     entityManager().persist(consultora);
   }
 
-  public List<Consultora> buscarPorNombre(String nombre) {
-    return entityManager() //
+  public Consultora buscarPorNombre(String nombre) {
+    Consultora consultoras = entityManager() //
         .createQuery("from Consultora c where c.nombre like :nombre", Consultora.class) //
-        .setParameter("nombre", "%" + nombre + "%") //
-        .getResultList();
+        .setParameter("nombre", "%" + nombre + "%")
+        .getSingleResult();
+
+    consultoras.setProyectos(consultoras.getProyectos().subList(0,3));
+    return consultoras;
   }
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Consultora {
   private int cantidadEmpleados;
 
   @OneToMany(mappedBy = "consultoraEncargada")
-  private Collection<Proyecto> proyectos;
+  private List<Proyecto> proyectos;
 
   protected Consultora() {
   }
@@ -48,8 +49,12 @@ public class Consultora {
     return nombre;
   }
 
-  public Collection<Proyecto> getProyectos() {
+  public List<Proyecto> getProyectos() {
     return proyectos;
+  }
+
+  public void setProyectos(List<Proyecto> proyectos){
+    this.proyectos = proyectos;
   }
 
   public long getId() {
